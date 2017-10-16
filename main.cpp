@@ -8,8 +8,7 @@ using namespace std;
 
 int main()
 {
-	char a[4][4];
-
+	int a[4][4];
 	for (int j = 0; j < 4; ++j) {
 		for (string string; getline(cin, string); ) {
 			istringstream stream(string);
@@ -30,69 +29,192 @@ int main()
 
 	char oper;
 	cin >> oper;
+	while (oper != 'q') {
 
-	
+		switch (oper) {
 
-	switch (oper)
+		case 'j': {
+			int b[4][4];
 
-		case 'j': 
-			for (int i = 3; i == 1; i--) {
+			for (int i = 0; i < 4; i++) {
+				int p = 3;
+				for (int j = 3; j >= 0; j--) {
+					if (a[j][i] > 0) {
+						b[p][i] = a[j][i];
+						a[j][i] = 0;
+						p--;
+					}
+				}
+			}
+			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 4; j++) {
-					switch (i)
-						case '3':
-							if ((isdigit(a[j][i])) && (a[j][i] == a[j][i - 1])) {
-								a[j][i] = a[j][i] * 2;
-								a[j][i - 1] = '*';
+					if (b[i][j] < 0) b[i][j] = 0;
+				}
+			}
+			for (int i = 0; i < 4; i++) {
+				for (int j = 3; j > 0; j--) {
+					if (b[j][i] == b[j - 1][i]) {
+						b[j][i] = b[j][i] * 2;
+						b[j - 1][i] = 0;
+					}
+				}
+			}
+			for (int i = 0; i < 4; i++) {
+				int p = 3;
+				for (int j = 3; j >= 0; j--) {
+					if (b[j][i] > 0) {
+						a[p][i] = b[j][i];
+						p--;
+					}
+				}
+			}
 
-							}
-							else if ((isdigit(a[j][i])) && (a[j][i] == a[j][i - 2]) && (!isdigit(a[j][i - 1]))) {
-								a[j][i] = a[j][i] * 2;
-								a[j][i - 2] = '*';
+		}
+				  break;
 
-							}
-							else if ((isdigit(a[j][i])) && (a[j][i] == a[j][i - 3]) && (!isdigit(a[j][i - 1])) && (!isdigit(a[j][i - 2]))) {
-								a[j][i] = a[j][i] * 2;
-								a[j][i - 3] = '*';
+		case 'k': {
+			int b[4][4];
 
-							}
+			for (int i = 0; i < 4; i++) {
+				int p = 0;
+				for (int j = 0; j < 4; j++) {
+					if (a[j][i] > 0) {
+						b[p][i] = a[j][i];
+						a[j][i] = 0;
+						p++;
+					}
+				}
+			}
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (b[i][j] < 0) b[i][j] = 0;
+				}
+			}
 
-			
-			
 
-						case '2':
-							if ((isdigit(a[j][i])) && (a[j][i] == a[j][i - 1])) {
-								a[j][i] = a[j][i] * 2;
-								a[j][i - 1] = '*';
 
-							}
-							else if ((isdigit(a[j][i])) && (a[j][i] == a[j][i - 2]) && (!isdigit(a[j][i - 1]))) {
-								a[j][i] = a[j][i] * 2;
-								a[j][i - 2] = '*';
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (b[j][i] == b[j + 1][i]) {
+						b[j][i] = b[j][i] * 2;
+						b[j + 1][i] = 0;
+					}
+				}
+			}
+			for (int i = 0; i < 4; i++) {
+				int p = 0;
+				for (int j = 0; j < 4; j++) {
+					if (b[j][i] > 0) {
+						a[p][i] = b[j][i];
+						p++;
+					}
+				}
+			}
+		}
+				  break;
 
-							} break;
+		case 'h': {
+			int b[4][4];
 
-						case '1':
-							if ((isdigit(a[j][i])) && (a[j][i] == a[j][i - 1])) {
-								a[j][i] = a[j][i] * 2;
-								a[j][i - 1] = '*';
+			for (int i = 0; i < 4; i++) {
+				int p = 0;
+				for (int j = 0; j < 4; j++) {
+					if (a[i][j] > 0) {
+						b[i][p] = a[i][j];
+						a[i][j] = 0;
+						p++;
+					}
+				}
+			}
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (b[i][j] < 0) b[i][j] = 0;
+				}
+			}
 
-							}break; 
+
+
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (b[i][j] == b[i][j + 1]) {
+						b[i][j] = b[i][j] * 2;
+						b[i][j + 1] = 0;
+					}
+				}
+			}
+
+			for (int i = 0; i < 4; i++) {
+				int p = 0;
+				for (int j = 0; j < 4; j++) {
+					if (b[i][j] > 0) {
+						a[i][p] = b[i][j];
+						p++;
+					}
+				}
+			}
+		}
+				  break;
+
+		case 'l': {
+			int b[4][4];
+
+			for (int i = 0; i < 4; i++) {
+				int p = 3;
+				for (int j = 3; j >= 0; j--) {
+					if (a[i][j] > 0) {
+						b[i][p] = a[i][j];
+						a[i][j] = 0;
+						p--;
+					}
 				}
 			}
 
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 4; j++) {
-
-					cout << a[i][j] << " ";
+					if (b[i][j] < 0) b[i][j] = 0;
 				}
-				cout << endl;
 			}
+
+			for (int i = 0; i < 4; i++) {
+				for (int j = 3; j > 0; j--) {
+					if (b[i][j] == b[i][j - 1]) {
+						b[i][j] = b[i][j] * 2;
+						b[i][j - 1] = 0;
+					}
+				}
+			}
+
+			for (int i = 0; i < 4; i++) {
+				int p = 3;
+				for (int j = 3; j >= 0; j--) {
+					if (b[i][j] > 0) {
+						a[i][p] = b[i][j];
+						p--;
+					}
+				}
+			}
+		}
+				  break;
+
+		}
+
 	
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+
+				cout << a[i][j] << " ";
+			}
+			cout << endl;
+
+		}
+		cin >> oper;
+
+	}
 
 
 
 	cin.get();
 	cin.get();
-	
-    return 0;
+	return 0;
 }
